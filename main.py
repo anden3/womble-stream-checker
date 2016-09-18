@@ -6,7 +6,7 @@ import threading
 
 reddit = None
 subreddit = None
-last_status = False
+last_status = None
 clientCallback = 'http://127.0.0.1:65010/authorize_callback'
 
 twitchHeaders = {
@@ -41,7 +41,8 @@ def init_reddit():
 
 
 def get_twitch_status():
-    return requests.get("https://api.twitch.tv/kraken/streams/sovietwomble", headers=twitchHeaders).json()["stream"] != "null"
+    request = requests.get("https://api.twitch.tv/kraken/streams/sovietwomble", headers=twitchHeaders).json()
+    return request["stream"] != None
 
 
 def change_stylesheet(live):
@@ -62,7 +63,7 @@ def change_stylesheet(live):
     else:
         stylesheetList[mr.start(3):mr.end(3)] = "4";
         stylesheet = ''.join(stylesheetList)
-        
+                
         if afterCssExists:
             stylesheet = stylesheet[:-len(liveCss)]
     

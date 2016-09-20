@@ -41,7 +41,11 @@ def init_reddit():
 
 
 def get_twitch_status():
-    request = requests.get("https://api.twitch.tv/kraken/streams/sovietwomble", headers=twitchHeaders).json()
+    try:
+        request = requests.get("https://api.twitch.tv/kraken/streams/sovietwomble", headers=twitchHeaders).json()
+    except JSONDecodeError:
+        return False
+    
     return request["stream"] != None
 
 

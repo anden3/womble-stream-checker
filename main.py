@@ -46,7 +46,10 @@ def get_twitch_status():
     except JSONDecodeError:
         return False
     
-    return request["stream"] != None
+    try:
+        return request["stream"] != None
+    except KeyError:
+        return False
 
 
 def change_stylesheet(live):
